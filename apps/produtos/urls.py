@@ -8,6 +8,7 @@ router.register(r'fornecedores', views.FornecedoresViewSet)
 router.register(r'produtos', views.ProdutosViewSet)
 router.register(r'categorias', views.CategoriasViewSet)
 router.register(r'fabricantes', views.FabricantesViewSet)
+router.register(r'servicos', views.ServicosViewSet)
 
 
 app_name = 'produtos'
