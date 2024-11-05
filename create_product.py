@@ -2,6 +2,17 @@ import random
 from faker import Faker
 Faker = Faker()
 
+def criar_crientes(qtd):
+  from apps.clientes.models import Cliente
+  for i in range(qtd):
+    c = Cliente.objects.create(
+      nome = Faker.name(),
+      documento = str(Faker.random_number(digits=12, fix_len=True)),
+      email = Faker.email(),
+      telefone = str(Faker.random_number(digits=11, fix_len=True)),
+    )
+    c.save()
+
 def criar_categoria(qtd):
   from apps.produtos.models import Categoria
   for i in range(qtd):
@@ -60,7 +71,8 @@ if __name__ == "__main__":
   #criar_fornecedor(5)
   #criar_categoria(5)
   #criar_fabricante(5)
-  criar_produto(50)
+  #criar_produto(50)
+  criar_crientes(50)
 
     
 
