@@ -5,7 +5,7 @@ from .serializers import  OrcamentoSerializer, ItemServicoSerializer, Informacoe
 class OrcamentoViewSet(viewsets.ModelViewSet):
   queryset = Orcamento.objects.all().order_by('-created')
   serializer_class = OrcamentoSerializer
-  permission_classes = [permissions.IsAuthenticated]
+  #permission_classes = [permissions.IsAuthenticated]
   
 class InformacoesOrcamentoViewSet(viewsets.ModelViewSet):
   queryset = InformacoesOrcamento.objects.all().order_by('-created')
@@ -15,7 +15,7 @@ class InformacoesOrcamentoViewSet(viewsets.ModelViewSet):
 class ItemProdutoViewSet(viewsets.ModelViewSet):
   queryset = ItemProduto.objects.all().order_by('-created')
   serializer_class = ItemProdutoSerializer
-  permission_classes = [permissions.IsAuthenticated]
+  # permission_classes = [permissions.IsAuthenticated]
   
 class ItemServicoViewSet(viewsets.ModelViewSet):
   queryset = ItemServico.objects.all().order_by('-created')

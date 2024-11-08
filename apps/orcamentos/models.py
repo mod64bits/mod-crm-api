@@ -15,7 +15,7 @@ class Orcamento(BaseModel):
         ("CANCELADO", 'CANCELADO'),
         ("NAO APROVADO", 'NÃO APROVADO'),
     )
-    descricao = models.CharField('Descricção', max_length=200)
+    titulo = models.CharField('Descricção', max_length=200, null=True, blank=True)
     validade = models.DateField('Validade', default=Datas().vencimento())
     status = models.CharField('Situação', max_length=50, choices=STATUS_CHOICES, default="NAO ENVIADO")
     cliente = models.ForeignKey(
@@ -60,11 +60,17 @@ class ItemProduto(BaseModel):
 
     quantidade = models.PositiveIntegerField('Quantidade', default=1)
     
+    @property
+    def valor_compra(self):
+        return self.produto.preco_compra
+    
 
     class Meta:
         verbose_name = 'Item Produto'
         verbose_name_plural = 'itens Produtos'
         ordering = ['-created']
+        
+    
 
     def __str__(self):
         return f"{self.produto}  -  {self.preco}"
@@ -109,3 +115,6 @@ class InformacoesOrcamento(BaseModel):
 
     def __str__(self):
         return self.titulo
+    
+    
+    

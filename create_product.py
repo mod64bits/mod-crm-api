@@ -1,8 +1,9 @@
+from decimal import Decimal
 import random
 from faker import Faker
 Faker = Faker()
 
-def criar_crientes(qtd):
+def criar_clientes(qtd):
   from apps.clientes.models import Cliente
   for i in range(qtd):
     c = Cliente.objects.create(
@@ -60,6 +61,54 @@ def criar_produto(qtd):
     )
     p.save()
     
+def criar_servico(qtd):
+  from apps.produtos.models import Servico, Categoria
+  categoria = Categoria.objects.all()
+  for i in range(qtd):
+    s = Servico.objects.create(
+      nome = Faker.name(),
+      categoria = random.choice(categoria),
+    )
+    s.save()
+    
+def criar_orcamento(qt):
+  from apps.orcamentos.models import Orcamento, ItemProduto, ItemServico
+  from apps.clientes.models import Cliente
+  from apps.produtos.models import Produto, Servico
+  
+
+  for i in range(qt):
+    o = Orcamento.objects.create(
+      titulo = Faker.name(),
+      cliente = random.choice(Cliente.objects.all()),
+      descricao = Faker.name(),
+    )
+    o.save()
+    for p in range(15):
+      _produto = random.choice(Produto.objects.all()),
+      produtos = ItemProduto.objects.create(
+        orcamento = o,
+        produto = _produto[0],
+        preco = Decimal(_produto[0].preco_compra), 
+        quantidade = random.randint(1, 10),
+        acrescimo = Faker.pydecimal(left_digits=5, right_digits=2, positive=True),
+       
+      )
+      print(produtos)
+      produtos.save()
+    for servicos in range(5):
+      servicos = ItemServico.objects.create(
+        orcamento = o,
+        servico = random.choice(Servico.objects.all()),
+        descricao = Faker.name(),
+        quantidade = random.randint(1, 10),
+        valor = Faker.pydecimal(left_digits=5, right_digits=2, positive=True),
+       
+    )
+      servicos.save() 
+      
+     
+    
 if __name__ == "__main__":
   import os
 
@@ -72,7 +121,9 @@ if __name__ == "__main__":
   #criar_categoria(5)
   #criar_fabricante(5)
   #criar_produto(50)
-  criar_crientes(50)
+  #criar_servico(10)
+  #criar_clientes(10)
+  criar_orcamento(1)
 
     
 
